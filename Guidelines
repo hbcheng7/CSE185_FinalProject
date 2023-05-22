@@ -8,3 +8,6 @@ Make UCSC File (http://homer.ucsd.edu/homer/ngs/peaks.html):
 Find Peaks:
 - Use input as control
 - Use tag TSV files
+
+Input: tag direcotires, tag tsv files
+Output: a list of peaks and their start and finish, as well as their significance. input a coverage signifcance input
