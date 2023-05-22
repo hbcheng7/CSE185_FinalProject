@@ -1,0 +1,10 @@
+Download bam files and use makeTagDir command
+
+Make UCSC File (http://homer.ucsd.edu/homer/ngs/peaks.html):
+- Start from tag directories, utilize the .tsv files
+- Check for chromosome 17 data first
+- Ask user for chromosome of choice ?
+
+Find Peaks:
+- Use input as control
+- 
