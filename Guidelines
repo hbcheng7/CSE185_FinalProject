@@ -7,4 +7,4 @@ Make UCSC File (http://homer.ucsd.edu/homer/ngs/peaks.html):
 
 Find Peaks:
 - Use input as control
-- 
+- Use tag TSV files
