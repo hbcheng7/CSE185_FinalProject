@@ -1,4 +1,3 @@
-import re
 #WE WANT TO FIND PEAKS
 #PEAKS ARE AREAS WHERE COVERAGE IN SEQUENCING DATA IS MUCH HIGHER, HIGHER READ COUNTS
 #we need to approach this as a interval scheduling problem ,keeping track of number of reads per base pair
@@ -6,6 +5,14 @@ import re
 
 
 #OUTLINE:
+
+# IMPORTS
+import numpy as np
+import scipy.stats as stats
+import os
+import pwd
+import re
+
 
 #Function to read TSV Files from each chromosome, and select the chromosome of either user choice or by default select one with most data
 def processTagTSVs(dir_name):
