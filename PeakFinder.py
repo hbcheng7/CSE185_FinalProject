@@ -39,9 +39,49 @@ def processTagTSVs(dir_name):
   
  return
 #function to process trends in data and idefntiy peaks given thresholds of significance
-def findPeaks():
-  #return a list of start end values of peaks
-  return peaks
+#need a function to process foldChange
+def calcMaxFoldChange(windowStart, windowEnd, cr_dict, input_cr_dict):
+    maxVal = 0
+    #in between startPos and startPos+windowSize, find the position with MAX value
+    for i in range(windowStart, windowEnd):
+        #check if it is the new max
+        if i in cr_dict.keys():
+            if cr_dict[i] > maxVal:
+                maxVal = cr_dict[i]
+        
+    return maxVal
+
+def findPeaks(cr_dict,input_cr_dict, fcThreshold, windowSize):
+    possiblePeaks = []
+    #hunter code outline below:
+    #do it per chromosome
+    #given a window size, that is how much you check. incrementn i by window size
+    #temporarily work only on chr17
+    #start window is first position
+    windowStart = next(iter(cr_dict))
+    windowEnd = windowStart + windowSize
+    for pos in cr_dict:
+        #if position is still in the window, since we already ran it, continue
+        if pos < windowEnd:
+            print ("COnt")
+            continue
+        else:
+            #update window otherwise
+            windowStart = pos
+            windowEnd = pos + windowSize
+        print ("start: " + str(windowStart))
+        print ("end: " + str(windowEnd))
+ 
+        print (pos)
+        if (pos > 3000408):
+            break
+        #run maxFoldChange
+
+        maxFoldChange = calcMaxFoldChange(windowStart, windowEnd, cr_dict, input_cr_dict)
+        print ("MAX: " + str(maxFoldChange))
+        #check if this maxFoldChange is above our threshold
+        if (maxFoldChange >= fcThreshold):
+            possiblePeaks.append((windowStart,windowEnd))
 
 #function to process output BED file, write using python Output stream
 # test -> paired_list = [(3,78),(99,174),(201,276)]
