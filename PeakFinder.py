@@ -8,17 +8,33 @@ import re
 #OUTLINE:
 
 #Function to read TSV Files from each chromosome, and select the chromosome of either user choice or by default select one with most data
-def processTagTSVs():
-  #process a dictionary list of start end intervals, of pair each. Key = start coordinate, value = (START, END)
-  intervalList = {0:(0,1)}
-  #for loop given amount of intervals to add to the list
-  return intervalList
+def processTagTSVs(dir_name):
+    allCounts = {}
+    files = os.listdir(dir_name)
+    for file_name in files:
+        if file_name.endswith(".tags.tsv"):
+            fileCounts = {}
+            with open(os.path.join(dir_name, file_name)) as tsv:
+                for line in tsv:
+                    line = line.strip("\n")
+                    line = line.split("\t")
+                    for i in range(int(line[2]), int(line[2]) + int(line[-1])):
+                        key = i
+                        if key not in fileCounts.keys():
+                            fileCounts[key] = int(float(line[4]))
+                        else:
+                            fileCounts.update({key : fileCounts[key]+int(float(line[4]))})
+            fileCounts = {key : value for key, value in fileCounts.items() if value > 1}
+            sortKeys = list(fileCounts.keys())
+            sortKeys.sort()
+            fileCounts = {i : fileCounts[i] for i in sortKeys}
+            allCounts[file_name.split(".")[0]] = fileCounts
+    
+    sortKeys = list(allCounts.keys())
+    sortKeys.sort()
+    allCounts = {i : allCounts[i] for i in sortKeys}
 
-#Function to count number of reads per BP. 
-def countReads(intervalList):
-  #keep track of each BP and its read count in a dictionary. Key = int bp, Value = Count of Reads
-  allCounts = {}
-  #go through each interval and count up number of reads per BP. time compleixty might suck but start with this
+    return allCounts
   
   
  return
