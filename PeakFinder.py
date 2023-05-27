@@ -1,3 +1,4 @@
+import re
 #WE WANT TO FIND PEAKS
 #PEAKS ARE AREAS WHERE COVERAGE IN SEQUENCING DATA IS MUCH HIGHER, HIGHER READ COUNTS
 #we need to approach this as a interval scheduling problem ,keeping track of number of reads per base pair
@@ -27,7 +28,13 @@ def findPeaks():
   return peaks
 
 #function to process output BED file, write using python Output stream
-def createBED():
-  return BED
+# test -> paired_list = [(3,78),(99,174),(201,276)]
+def makeBED(paired_list):
+    file = open("myfile.bed", "w")
+    with file as f:
+            for pair in paired_list:
+                f.write(str(pair[0]) + "\t" + str(pair[1]) + "\t" + str(1) + "\n")
+
+makeBED(paired_list)
 
   
