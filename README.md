@@ -17,5 +17,5 @@ The output file format is going to be a BED file. It will give positions from st
 # To download:
 To download our repository into your system, run the command:
 
-$git clone https://github.com/hbcheng7/CSE185_FinalProject.git
+git clone https://github.com/hbcheng7/CSE185_FinalProject.git
 
