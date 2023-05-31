@@ -6,3 +6,16 @@ Tag directories MUST share file names for respective chromosomes and end with .t
 
 # Calling the Function:
 python PeakFinder.py <tag_directory_path> <control_tag_directory_path> -O <optional_output_path> 
+We are currently in the process of making this, so please utilize our test cases first 
+
+# How to Test Our Function:
+call test.py to test out our tag directory processing. It will print out a dictionary with the chromosome number, and a dictionary for the chromosome with its base pair position, with values of the read counts at each position. Although not fully implemented, testPeaks() will call the peak finding function given a window of set size, and use the window to find peaks in that window range.
+
+# File Format:
+The output file format is going to be a BED file. It will give positions from start to end of the predicted peaks, as well as their respective p-values. It will be done by our makeBED() function
+
+# To download:
+To download our repository into your system, run the command:
+
+git clone https://github.com/hbcheng7/CSE185_FinalProject.git
+
