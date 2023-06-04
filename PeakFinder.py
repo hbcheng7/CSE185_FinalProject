@@ -14,82 +14,100 @@ import pwd
 import re
 
 
-#Function to read TSV Files from each chromosome, and select the chromosome of either user choice or by default select one with most data
+#Function to read TSV Files from each chromosome, and then calling the peak finding on each
 def processTagTSVs(dir_name):
     allCounts = {}
     files = os.listdir(dir_name)
     for file_name in files:
         if file_name.endswith(".tags.tsv"):
-            fileCounts = {}
-            with open(os.path.join(dir_name, file_name)) as tsv:
-                for line in tsv:
-                    line = line.strip("\n")
-                    line = line.split("\t")
-                    for i in range(int(line[2]), int(line[2]) + int(line[-1])):
-                        key = i
-                        if key not in fileCounts.keys():
-                            fileCounts[key] = int(float(line[4]))
-                        else:
-                            fileCounts.update({key : fileCounts[key]+int(float(line[4]))})
-            fileCounts = {key : value for key, value in fileCounts.items() if value > 1}
-            sortKeys = list(fileCounts.keys())
-            sortKeys.sort()
-            fileCounts = {i : fileCounts[i] for i in sortKeys}
-            allCounts[file_name.split(".")[0]] = fileCounts
-    
-    sortKeys = list(allCounts.keys())
-    sortKeys.sort()
-    allCounts = {i : allCounts[i] for i in sortKeys}
+            processEachFile(file_name)
+    return
 
-    return allCounts
-  
-  
- return
-#function to process trends in data and idefntiy peaks given thresholds of significance
-#need a function to process foldChange
+#function that processes each tag.tsv file
+#returns a dictionary of {position: counts} given each bp in the chromosome of choice
+def processEachFile(file_name):
+    fileCounts = {}
+    with open(file_name) as tsv:
+        for line in tsv:
+            line = line.strip("\n")
+            line = line.split("\t")
+            #go from range position to length of read
+            #start with forward strand ones
+            if (int(line[3]) == 0):
+                for i in range(int(line[2]), int(line[2]) + int(line[-1])):
+                    key = i
+                    #if position isn't there, create a key with it
+                    if key not in fileCounts.keys():
+                        fileCounts[key] = int(float(line[4]))
+                    else:
+                        #update the position already there
+                        fileCounts.update({key : fileCounts[key]+int(float(line[4]))})
+            #now do reverse strand
+            if (int(line[3])==1):
+                for i in range(int(line[2]), int(line[2]) - int(line[-1]),-1):
+                    key = i
+                    #if position isn't there, create a key with it
+                    if key not in fileCounts.keys():
+                        fileCounts[key] = int(float(line[4]))
+                    else:
+                        #update the position already there
+                        fileCounts.update({key : fileCounts[key]+int(float(line[4]))})
+
+                        
+
 def calcMaxFoldChange(windowStart, windowEnd, cr_dict, input_cr_dict):
-    maxVal = 0
+    #maxVal = 0
+    maxPosition = (windowStart + windowEnd)/2
+    TFcounter = 0
+    ControlCounter = 0
     #in between startPos and startPos+windowSize, find the position with MAX value
     for i in range(windowStart, windowEnd):
         #check if it is the new max
         if i in cr_dict.keys():
-            if cr_dict[i] > maxVal:
-                maxVal = cr_dict[i]
-        
-    return maxVal
-
+            TFcounter += cr_dict[i]
+        if i in input_cr_dict.keys():
+            ControlCounter += input_cr_dict[i]
+    #print ("TF: "+ str(TFcounter))
+    #print ("CC: " + str(ControlCounter))
+    #if control or TF isn't 0, which it could be which would make value undefined
+    if (ControlCounter != 0 and TFcounter != 0):
+        return TFcounter/ControlCounter, maxPosition
+    return 0, 0
 def findPeaks(cr_dict,input_cr_dict, fcThreshold, windowSize):
     possiblePeaks = []
+    count = 0
+    windowStart = next(iter(cr_dict))
+    windowEnd = windowStart + windowSize
+    #for key, value in input_cr_dict.items():  
+      #  print ("key: " + str(key) + " value: " + str(value))
     #hunter code outline below:
     #do it per chromosome
     #given a window size, that is how much you check. incrementn i by window size
     #temporarily work only on chr17
     #start window is first position
-    windowStart = next(iter(cr_dict))
-    windowEnd = windowStart + windowSize
+    count = 0
+    startofWindow = True
     for pos in cr_dict:
         #if position is still in the window, since we already ran it, continue
         if pos < windowEnd:
-            print ("COnt")
             continue
         else:
             #update window otherwise
             windowStart = pos
             windowEnd = pos + windowSize
-        print ("start: " + str(windowStart))
-        print ("end: " + str(windowEnd))
- 
-        print (pos)
-        if (pos > 3000408):
-            break
-        #run maxFoldChange
-
-        maxFoldChange = calcMaxFoldChange(windowStart, windowEnd, cr_dict, input_cr_dict)
-        print ("MAX: " + str(maxFoldChange))
+        maxFoldChange, maxPosition = calcMaxFoldChange(windowStart, windowEnd, cr_dict, input_cr_dict)
+        #print (maxFoldChange)
         #check if this maxFoldChange is above our threshold
         if (maxFoldChange >= fcThreshold):
-            possiblePeaks.append((windowStart,windowEnd))
+            count+=1
+            #peak is the middle of the window +- half peak size on each end
+            peak = (maxPosition+(estimatedPeakSize/2),maxPosition-(estimatedPeakSize/2))
+            possiblePeaks.append((windowStart,windowEnd, maxFoldChange))
 
+    
+    return possiblePeaks
+       
+    
 #function to process output BED file, write using python Output stream
 # test -> paired_list = [(3,78),(99,174),(201,276)]
 def makeBED(paired_list):
