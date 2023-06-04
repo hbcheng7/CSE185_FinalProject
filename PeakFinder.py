@@ -13,6 +13,15 @@ import os
 import pwd
 import re
 
+# Define the tags, control tags, and output as command-line arguments
+parser = argparse.ArgumentParser()
+parser.add_argument('tags_tsv', type=str, help='input tags tsv file path')
+parser.add_argument('control_tags', type=str, help='input control tags tsv file path')
+parser.add_argument('-O', '--output', type=str, help='output file path')
+args = parser.parse_args()
+
+#We can call args.tags_tsv, args.control_tags, or args.output
+
 
 #Function to read TSV Files from each chromosome, and then calling the peak finding on each
 def processTagTSVs(dir_name):
