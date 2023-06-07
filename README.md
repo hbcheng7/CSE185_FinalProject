@@ -19,5 +19,8 @@ To download our repository into your system, run the command:
 
 git clone https://github.com/hbcheng7/CSE185_FinalProject.git
 
-# Our Jupyter Notebook of Currently Working Code
-Run our test cases in the working code of the jupyter notebook to see how it is working with the tag processing. It should display what the chromosome number is, followed by the position and readcounts values for the first 100 values of each chromosome.
+# Benchmarking 
+To benchmark the code to see if peaks match, run Homer's command:
+
+makeUCSCfile <tag-directory> -o auto
+The output of this will be a bedGraph file. This file will allow you to visualize the peaks in IGV, and then you can check if your peak regions match the ones of the bedGraph file.
