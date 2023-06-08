@@ -7,6 +7,7 @@ Tag directories MUST share file names for respective chromosomes and end with .t
 # Calling the Function:
 ```bash
 python PeakFinder.py <tag_directory_path> <control_tag_directory_path> -O <optional_output_path> 
+```
 Example:
 
 # How to Test Our Function:
