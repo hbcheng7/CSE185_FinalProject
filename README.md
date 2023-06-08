@@ -41,6 +41,7 @@ git clone https://github.com/hbcheng7/CSE185_FinalProject.git
 
 # Benchmarking 
 To benchmark the code to see if peaks match, run Homer's command:
-
+```bash
 makeUCSCfile <tag-directory> -o auto
+```
 The output of this will be a bedGraph file. This file will allow you to visualize the peaks in IGV, and then you can check if your peak regions match the ones of the bedGraph file.
