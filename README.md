@@ -18,12 +18,13 @@ python peakFinder.py lab5-benchmark/tagdirs/Sox2/ lab5-benchmark/tagdirs/input/ 
 ```
 
 # File Format:
-The output file format is going to be a BED file. It will give positions from start to end of the predicted peaks, as well as their respective p-values. It will be done by our makeBED() function
+The output file format is going to be a BED file. For each peak, it will give the chromosome number, a start and end position, as well as their respective p-values. 
 
 # To download:
 To download our repository into your system, run the command:
-
+```bash
 git clone https://github.com/hbcheng7/CSE185_FinalProject.git
+```
 
 # Benchmarking 
 To benchmark the code to see if peaks match, run Homer's command:
