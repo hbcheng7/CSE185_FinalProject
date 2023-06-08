@@ -9,6 +9,9 @@ Tag directories MUST share file names for respective chromosomes and end with .t
 python PeakFinder.py <tag_directory_path> <control_tag_directory_path> -O <optional_output_path> 
 ```
 Example:
+```bash
+python peakFinder.py tagdirs/Sox2/ tagdirs/input/ -O example.bed
+```
 
 # How to Test Our Function:
 call test.py to test out our tag directory processing. It will print out a dictionary with the chromosome number, and a dictionary for the chromosome with its base pair position, with values of the read counts at each position. Although not fully implemented, testPeaks() will call the peak finding function given a window of set size, and use the window to find peaks in that window range.
