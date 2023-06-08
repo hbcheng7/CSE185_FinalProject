@@ -1,1 +1,7 @@
+The ENCODE files we used to benchmark our data are too big to be included in the github repository. Here is how to access them:
 
+For the control, go to File Details, and download the "ENCFF171OVT" bam file from this link: https://www.encodeproject.org/experiments/ENCSR000ADN/.
+For the experimental input, download any bam file in File Details from this link: https://www.encodeproject.org/experiments/ENCSR000ETQ/.
+
+Once you have the bam file, run this commmand to create tag directories: makeTagDirectory <output directory> <input BAM file> [options]
+Now that you have the respective tag directories, you can use our code to create a BED file output.
