@@ -10,9 +10,13 @@ Run tag directories with the makeTagDirectory command.
 ```bash
 makeTagDirectory <output directory> <input BAM file> [options]
  ```
+ Example:
+ ```bash
+ makeTagDirectory ./tagdirs/Oct4 ./Oct4.sorted.bam
+```
  
 # Calling the Function:
-IMPORTANT: Before running our program, make sure you have created tag directories for both your transcription factor read data and the corresponding control. See the #Preprocessing step.
+IMPORTANT: Before running our program, make sure you have created tag directories for both your transcription factor read data and the corresponding control. See the # Preprocessing step.
 ```bash
 python PeakFinder.py <tag_directory_path> <control_tag_directory_path> -O [optional_output_path]
 ```
