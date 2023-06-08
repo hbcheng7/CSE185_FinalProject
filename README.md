@@ -16,6 +16,7 @@ Example for running based on Sox2 in the lab5:
 ```bash
 python peakFinder.py lab5-benchmark/tagdirs/Sox2/ lab5-benchmark/tagdirs/input/ -O example.bed
 ```
+Compare the BED file output by loading it in IGV to visualize peak locations. See # Benchmarking for more details
 
 # File Format:
 The output file format is going to be a BED file. For each peak, it will give the chromosome number, a start and end position, as well as their respective p-values. 
