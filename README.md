@@ -4,7 +4,15 @@ Our output will be a .BED file written to the directory of the user's choice.
 Tag directories MUST be generated prior to running our program, with tag files in the TSV format. Tag directories can be created using HOMER's makeTagDirectory command. http://homer.ucsd.edu/homer/ngs/tagDir.html
 Tag directories MUST share file names for respective chromosomes and end with .tags.tsv (i.e tag file for chromosome 17 must be 17.tags.tsv in both directories). 
 
+# Preprocessing:
+We will have .bam files in the example-files/ folder. Please utilize those to make tag directories before running our program
+Run tag directories with the makeTagDirectory command. 
+```bash
+makeTagDirectory <output directory> <input BAM file> [options]
+ ```
+ 
 # Calling the Function:
+IMPORTANT: Before running our program, make sure you have created tag directories for both your transcription factor read data and the corresponding control. See the #Preprocessing step.
 ```bash
 python PeakFinder.py <tag_directory_path> <control_tag_directory_path> -O [optional_output_path]
 ```
