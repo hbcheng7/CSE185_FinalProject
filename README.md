@@ -23,7 +23,7 @@ python PeakFinder.py <tag_directory_path> <control_tag_directory_path> -O [optio
 
 
 # How to Test Our Function:
-run the command on the example-files. There are two folders, one is our lab5-benchmark, and one is from ENCODE-benchmark. 
+run the command on the example files. There are two folders, one is our lab5-benchmark, and one is from ENCODE-benchmark. 
 Example for running based on Sox2 in the lab5:
 ```bash
 python peakFinder.py lab5-benchmark/tagdirs/Sox2/ lab5-benchmark/tagdirs/input/ -O example.bed
