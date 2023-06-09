@@ -28,7 +28,8 @@ Example for running based on Sox2 in the lab5:
 ```bash
 python peakFinder.py lab5-benchmark/tagdirs/Sox2/ lab5-benchmark/tagdirs/input/ -O example.bed
 ```
-Compare the BED file output by loading it in IGV to visualize peak locations. See # Benchmarking for more details
+Compare the BED file output by loading it in IGV to visualize peak locations. See # Benchmarking for more details.
+NOTE: The tag directory that we have in the benchmark only has two files, this is because our github cannot support files that are too big, bigger than 25 MB.
 
 # File Format:
 The output file format is going to be a BED file. For each peak, it will give the chromosome number, a start and end position, as well as their respective p-values. 
@@ -44,4 +45,4 @@ To benchmark the code to see if peaks match, run Homer's command:
 ```bash
 makeUCSCfile <tag-directory> -o auto
 ```
-The output of this will be a bedGraph file. This file will allow you to visualize the peaks in IGV, and then you can check if your peak regions match the ones of the bedGraph file.
+The output of this will be a bedGraph file. This file will allow you to visualize the peaks in IGV, and then you can check if your peak regions match the ones of the bedGraph file. 
