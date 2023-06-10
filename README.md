@@ -25,7 +25,7 @@ makeTagDirectory <output directory> <input BAM file> [options]
 # Calling the Function:
 IMPORTANT: Before running our program, make sure you have created tag directories for both your transcription factor read data and the corresponding control. See the **Preprocessing** step.
 ```bash
-python peakFinder.py <tag_directory_path> -c [optional_control_tag_directory_path] -O [optional_output_path] -t [threads]
+python peakFinder.py <tag_directory_path> -c <optional_control_tag_directory_path> -O [optional_output_path] -t [threads]
 ```
 
 
