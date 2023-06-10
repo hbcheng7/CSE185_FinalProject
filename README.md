@@ -18,7 +18,7 @@ makeTagDirectory <output directory> <input BAM file> [options]
 # Calling the Function:
 IMPORTANT: Before running our program, make sure you have created tag directories for both your transcription factor read data and the corresponding control. See the **Preprocessing** step.
 ```bash
-python PeakFinder.py <tag_directory_path> <control_tag_directory_path> -O [optional_output_path]
+python peakFinder.py <tag_directory_path> -c <control_tag_directory_path> -O [optional_output_path] -t [threads]
 ```
 
 
@@ -26,7 +26,7 @@ python PeakFinder.py <tag_directory_path> <control_tag_directory_path> -O [optio
 run the command on the example files. There are two folders, one is our lab5-benchmark, and one is from ENCODE-benchmark. 
 Example for running based on Sox2 in the lab5:
 ```bash
-python peakFinder.py lab5-benchmark/tagdirs/Sox2/ lab5-benchmark/tagdirs/input/ -O example.bed
+python peakFinder.py lab5-benchmark/tagdirs/Sox2/ -O example.bed
 ```
 Compare the BED file output by loading it in IGV to visualize peak locations. See # Benchmarking for more details.
 NOTE: The tag directory that we have in the benchmark only has two files, this is because our github cannot support files that are too big, bigger than 25 MB.
@@ -41,8 +41,10 @@ git clone https://github.com/hbcheng7/CSE185_FinalProject.git
 ```
 
 # Benchmarking 
-To benchmark the code to see if peaks match, run Homer's command:
+To benchmark the code to see if peaks match, download HOMER or any other preferred peak calling program and run on the test data (example is using HOMER):
 ```bash
-makeUCSCfile <tag-directory> -o auto
+findPeaks /lab5-benchmark/tagdirs/Sox2 -style factor -o auto
+python peakFinder.py /lab5-benchmark/tagdirs/Sox2 -t 6 -O peaks185.bed
 ```
-The output of this will be a bedGraph file. This file will allow you to visualize the peaks in IGV, and then you can check if your peak regions match the ones of the bedGraph file. 
+You can visualize both these bed files in IGV, or if you prefer you may utilize a command such as HOMER's MakeUCSC to convert the bed file to a bedgraph and visualize. 
+From here, you can see how the identified peaks compare.
