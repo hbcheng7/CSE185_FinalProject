@@ -35,6 +35,7 @@ Example for running based on Sox2 in the lab5:
 ```bash
 python peakFinder.py lab5-benchmark/tagdirs/Sox2/ -O example.bed
 ```
+For the ENCODE-benchmark, ENCFF356 is the experimental data, and ENCFF171OVT is the control input.
 Compare the BED file output by loading it in IGV to visualize peak locations. See # Benchmarking for more details.
 NOTE: The tag directory that we have in the benchmark only has two files, this is because our github cannot support files that are too big, bigger than 25 MB. If you want full example files, go to example-files and follow the text file's instructions there.
 
